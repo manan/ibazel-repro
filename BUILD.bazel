@@ -1,0 +1,27 @@
+load("@aspect_rules_js//js:defs.bzl", "js_binary", "js_run_binary", "js_run_devserver")
+load("@npm//:defs.bzl", "npm_link_all_packages")
+
+npm_link_all_packages(name = "node_modules")
+
+js_binary(
+    name = "api",
+    data = [
+        ":node_modules/express"
+    ],
+    entry_point = "index.js",
+)
+
+js_run_binary(
+    name = "run",
+    outs = ["run"],
+    args = ["run"],
+    chdir = package_name(),
+    tool = ":api",
+)
+
+js_run_devserver(
+    name = "dev",
+    args = ["."],
+    data = [],
+    tool = ":api",
+)

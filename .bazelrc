@@ -1,0 +1,2 @@
+# No bazel-* symlinks
+build --experimental_convenience_symlinks=ignore
